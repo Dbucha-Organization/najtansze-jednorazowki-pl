@@ -1,0 +1,938 @@
+/* Global Vars & Reset */
+:root {
+    --primary-color: #ccff00;
+    /* Neon Green/Yellow */
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+    --secondary-text: #b0b0b0;
+    --font-main: 'Inter', sans-serif;
+    --font-display: 'Oswald', sans-serif;
+    --spacing-unit: 1rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    /* Controlled by JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border: 2px solid var(--primary-color);
+}
+
+.modal h2 {
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+}
+
+.modal .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+#yesBtn {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+#noBtn {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+/* Warning Banner */
+.warning-banner {
+    background-color: #000;
+    border-bottom: 2px solid #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.warn {
+    font-size: 0.8rem;
+    color: #fff;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Header */
+.main-header {
+    background-color: var(--bg-color);
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Mobile Nav */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+}
+
+/* Hero Section */
+.hero {
+    padding: 4rem 1rem;
+    text-align: center;
+    background: radial-gradient(circle at center, #222 0%, #121212 100%);
+}
+
+.hero h2 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.hero p {
+    color: var(--secondary-text);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #000;
+    padding: 12px 32px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.cta-button:hover {
+    background-color: #b3ff00;
+    transform: scale(1.05);
+}
+
+/* Filter Section */
+.filter-section {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+    border-color: var(--primary-color);
+}
+
+/* Products Grid */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
+}
+
+.product-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #333;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.product-image {
+    height: 250px;
+    background-color: #2a2a2a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555;
+    font-weight: bold;
+    font-size: 1.2rem;
+    overflow: hidden;
+    /* Ensure nothing spills out */
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Fills the box completely, may crop */
+    display: block;
+}
+
+.product-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.product-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.product-info .buchy {
+    color: var(--secondary-text);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.buy-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.buy-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+}
+
+/* Slider Section */
+.slider-section {
+    padding: 4rem 1rem;
+    background-color: #0a0a0a;
+}
+
+.slider-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    height: 300px;
+    background: #1e1e1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-right: 20px;
+    /* Minimal gap simulation handled by wrapper math usually, but simplistic here */
+}
+
+/* Correcting slide layout for the translate approach */
+.slider-wrapper .slide {
+    margin-right: 0;
+    position: relative;
+    overflow: hidden;
+    /* Contains the absolute image */
+}
+
+.slide-content {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* Make image act as background */
+.slide-content img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.7;
+    /* Optional: dim image slightly for text readability */
+}
+
+.slide h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    color: #fff;
+}
+
+.slide p {
+    margin-bottom: 1.5rem;
+    color: #eee;
+    /* Light text for dark bg */
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+.slide .cta-button,
+.slide .buy-btn {
+    position: relative;
+    z-index: 2;
+}
+
+.slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.slider-controls button {
+    background: var(--card-bg);
+    border: 1px solid #444;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.pagination {
+    display: flex;
+    gap: 5px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #444;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: var(--primary-color);
+}
+
+/* Delivery Section */
+.delivery-section {
+    padding: 4rem 1rem;
+    text-align: center;
+    background: linear-gradient(0deg, #121212, #1e1e1e);
+}
+
+.delivery-section p {
+    max-width: 600px;
+    margin: 1rem auto 2rem;
+}
+
+.delivery-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border: 2px solid white;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.delivery-btn:hover {
+    background: white;
+    color: black;
+}
+
+/* Reviews */
+.reviews-section {
+    padding: 4rem 1rem;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.review-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.stars {
+    color: gold;
+    margin-bottom: 1rem;
+}
+
+.review-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.review-card p {
+    font-style: italic;
+    color: var(--secondary-text);
+}
+
+/* Footer */
+footer {
+    padding: 3rem 1rem;
+    background-color: #000;
+    border-top: 1px solid #222;
+}
+
+.footer-links h4 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+.footer-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-links a {
+    color: var(--secondary-text);
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.copyright {
+    margin-top: 3rem;
+    text-align: center;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Mobile Fixes */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        height: 200px;
+    }
+}
+
+/* 3D Cube Slider */
+.cube-slider-section {
+    padding: 6rem 1rem;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.cube-container {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    perspective: 1000px;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out;
+}
+
+.cube-face {
+    position: absolute;
+    width: 300px;
+    height: 390px;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(204, 255, 0, 0.2);
+    overflow: visible;
+    margin-bottom: 20px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.cube-face.active {
+    z-index: 50;
+    /* Prioritize active face */
+}
+
+.cube-content,
+.cube-contentcta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure image stays at top/background */
+.cube-content img,
+.cube-contentcta img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.6;
+    /* Slight dim so text pops? Or user wants just image? */
+    /* User added img manually. Let's respect flow but assuming they want background-like behavior or top. */
+    /* Wait, user markup has img as first child. */
+}
+
+/* Actually, the user markup has img, h3, p, a. */
+/* If img is first, it pushes others down. If we want button at bottom, flex column is good. */
+/* But img should probably be normal flow or background. 
+   If normal flow, it takes space.
+   Let's check the user request exactly: "button down".
+*/
+
+.cube-content .buy-btn,
+.cube-contentcta .buy-btn {
+    margin-top: auto;
+    z-index: 5;
+    position: relative;
+    /* Ensure it's clickable */
+}
+
+/* Re-add specific styles for content elements to overlay image correctly if image is huge */
+.cube-content h3,
+.cube-content p {
+    z-index: 1;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    /* readable text over image */
+}
+
+.cube-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Face positions: dist = width / 2 = 150px */
+.cube-face.front {
+    transform: rotateY(0deg) translateZ(150px);
+}
+
+.cube-face.right {
+    transform: rotateY(90deg) translateZ(150px);
+}
+
+.cube-face.back {
+    transform: rotateY(180deg) translateZ(150px);
+}
+
+.cube-face.left {
+    transform: rotateY(-90deg) translateZ(150px);
+}
+
+/* Active State Nudge - Brings active face forwards to capture clicks */
+.cube-face.front.active {
+    transform: rotateY(0deg) translateZ(151px);
+}
+
+.cube-face.right.active {
+    transform: rotateY(90deg) translateZ(151px);
+}
+
+.cube-face.back.active {
+    transform: rotateY(180deg) translateZ(151px);
+}
+
+.cube-face.left.active {
+    transform: rotateY(-90deg) translateZ(151px);
+}
+
+/* Face Decoration */
+.cube-content,
+.cube-contentcta {
+    padding: 20px;
+}
+
+.cube-face h3 {
+    font-family: var(--font-display);
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+.cube-face p {
+    font-size: 1rem;
+    color: var(--secondary-text);
+}
+
+.cube-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: var(--primary-color);
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Responsive Cube */
+@media (max-width: 480px) {
+    .cube-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .cube-face {
+        width: 250px;
+        height: 250px;
+    }
+
+    /* Recalculate dist = 125px */
+    .cube-face.front {
+        transform: rotateY(0deg) translateZ(125px);
+    }
+
+    .cube-face.right {
+        transform: rotateY(90deg) translateZ(125px);
+    }
+
+    .cube-face.back {
+        transform: rotateY(180deg) translateZ(125px);
+    }
+
+    .cube-face.left {
+        transform: rotateY(-90deg) translateZ(125px);
+    }
+}
+
+/* Cube Controls */
+.cube-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 500px;
+}
+
+.cube-ctrl-btn {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+}
+
+.cube-ctrl-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+    /* transform: scale(1.1); */
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+@media (max-width: 600px) {
+    .cube-wrapper {
+        gap: 1rem;
+    }
+
+    .cube-ctrl-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px 0;
+    transition: all 0.3s;
+}
+
+.close-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transform: translateY(-100%);
+        transition: transform 0.4s ease-in-out;
+        z-index: 2000;
+        /* Above everything */
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+    }
+
+    .close-menu {
+        display: block;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+    }
+}
+
+/* Reviews Fix Mobile */
+@media (max-width: 480px) {
+    .reviews-grid {
+        justify-items: center;
+        /* Grid centering */
+    }
+
+    .review-card {
+        text-align: center;
+        max-width: 100%;
+    }
+}
+
+/* Cube Fix Mobile 320px */
+@media (max-width: 400px) {
+    .cube-wrapper {
+        gap: 0;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .cube-container {
+        /* Wider and higher for 320px screens */
+        width: 260px;
+        height: 340px;
+    }
+
+    .cube-face {
+        width: 260px;
+        height: 340px;
+        font-size: 1.2rem;
+    }
+
+    /* Recalculate dist = 130px (half of 260px width) */
+    .cube-face.front {
+        transform: rotateY(0deg) translateZ(130px);
+    }
+
+    .cube-face.right {
+        transform: rotateY(90deg) translateZ(130px);
+    }
+
+    .cube-face.back {
+        transform: rotateY(180deg) translateZ(130px);
+    }
+
+    .cube-face.left {
+        transform: rotateY(-90deg) translateZ(130px);
+    }
+
+    .cube-ctrl-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: auto;
+        z-index: 20;
+    }
+
+    #cubePrev {
+        left: 0px;
+    }
+
+    #cubeNext {
+        right: 0px;
+    }
+}
